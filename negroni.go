@@ -79,7 +79,9 @@ func (n *Negroni) With(handlers ...Handler) *Negroni {
 // Logger - Request/Response Logging
 // Static - Static File Serving
 func Classic() *Negroni {
-	return New(NewRecovery(), NewLogger(), NewStatic(http.Dir("public")))
+	//调整日志处理和错误处理的顺序，以便日志正常打印
+	//return New(NewRecovery(), NewLogger(), NewStatic(http.Dir("public")))
+	return New( NewLogger(),NewRecovery(), NewStatic(http.Dir("public")))
 }
 
 func (n *Negroni) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
